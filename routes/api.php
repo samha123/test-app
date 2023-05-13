@@ -17,8 +17,7 @@ use App\Http\Controllers\ProductController;
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
     //All secure URL's
-  
+    Route::get("/products",[ProductController::class,'index']);
 
     });
 Route::post("/public/login",[UserController::class,'index']);
-Route::get("/products",[ProductController::class,'index']);
