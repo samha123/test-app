@@ -94,7 +94,7 @@
                         <h6 class="collapse-header">Products:</h6>
                         <a class="collapse-item" href="product">List</a>
                         <a class="collapse-item" href="product/create">Create</a>
-                        <a class="collapse-item" href="product/edit">Edit</a>
+                    
                         
                     </div>
                 </div>
@@ -138,18 +138,18 @@
 
                     <!-- Topbar Search -->
                     <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    action="{{ route('product.index') }}"  class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text"  name="keyword" class="form-control bg-light border-0 small" placeholder="Search for..." value="{{ isset($_GET['keyword'])?$_GET['keyword']:'' }}"
                                 aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
                         </div>
                     </form>
-
+ 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -300,7 +300,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::guard('admin')->user()->name}}</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -348,17 +348,7 @@
                         </div>
                         <br>
                        
-                        <form action="{{ route('product.index') }}">
-                        <div class="input-group input-group-sm float-left" style="width: 50%;">
-                            <input type="text" name="keyword" class="form-control float-right" placeholder="Search" value="{{ isset($_GET['keyword'])?$_GET['keyword']:'' }}">
-                            
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                       
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -445,7 +435,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="/admin/logout">Logout</a>
                 </div>
             </div>
         </div>
