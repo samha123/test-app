@@ -94,7 +94,7 @@ class ProductController extends Controller
         $product->update([
           
           'name' => $request->name,
-          'category_id' => $request->category,
+          
          'price' => $request->price,
           'quantity' => $request->quantity,
           'status' => $request->status,
@@ -102,12 +102,19 @@ class ProductController extends Controller
           
           
         ]);
+        if (! empty($request->category)) {
+          ProductCategory ::where('product_id', $product->id)->delete();
+          $categoryies=$request->category;
+      
+          $category = Category::find([$categoryies]);
+              $product->categories()->attach($category);
+          }
         $request->image->move(public_path('images'), $imageName);   
     }else{
       $product->update([
           
         'name' => $request->name,
-        'category_id' => $request->category,
+        
        'price' => $request->price,
         'quantity' => $request->quantity,
         'status' => $request->status,
@@ -115,6 +122,13 @@ class ProductController extends Controller
         
         
       ]);
+      if (! empty($request->category)) {
+      ProductCategory ::where('product_id', $product->id)->delete();
+      $categoryies=$request->category;
+  
+      $category = Category::find([$categoryies]);
+          $product->categories()->attach($category);
+      }
     }
        
        
